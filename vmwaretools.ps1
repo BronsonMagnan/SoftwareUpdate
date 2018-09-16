@@ -6,7 +6,7 @@
     #get the raw page content
     $pagecontent=(wget -Uri $vmwaretools).content
     #change one big string into many strings, then find only the line with the version number
-    $interestingLine = ($raw.split("`n") | Select-string -Pattern $pattern).tostring().trim()
+    $interestingLine = ($pagecontent.split("`n") | Select-string -Pattern $pattern).tostring().trim()
     #remove the whitespace and split on the assignment operator, then split on the double quote and select the correct item
     $filename = (($interestingLine.replace(" ","").split("=") | Select-string -Pattern $pattern).tostring().trim().split("`""))[1]
     #file name is in the format "VMware-tools-10.2.1-8267844-x86_64.exe"
